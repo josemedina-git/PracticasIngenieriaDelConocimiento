@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evaluación de Riesgo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+      body {
+        background-color: #f8f9fa;
+        padding-top: 50px;
+      }
+      .container-box {
+        max-width: 800px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 60px;
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container-box">
+      <h2 class="mb-4 text-center">Calculadora de Nivel de Riesgo</h2>
+      <form method="POST" action="/" id="riesgoForm">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" name="nombre" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Edad</label>
+          <input type="number" name="edad" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Estado de Salud</label>
+          <select name="salud" class="form-select">
+            <option value="saludable">Saludable</option>
+            <option value="diabetes">Diabetes</option>
+            <option value="hipertension">Hipertensión</option>
+            <option value="obesidad">Obesidad</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Historial Familiar</label>
+          <select name="historial_familiar" class="form-select">
+            <option value="false">No</option>
+            <option value="true">Sí</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Estilo de Vida</label>
+          <select name="estilo_vida" class="form-select">
+            <option value="activo">Activo</option>
+            <option value="fumador">Fumador</option>
+            <option value="alcoholico">Alcohólico</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ocupación</label>
+          <select name="ocupacion" class="form-select">
+            <option value="oficina">Oficina</option>
+            <option value="minero">Minero</option>
+            <option value="piloto">Piloto</option>
+            <option value="bombero">Bombero</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Historial de Seguro</label>
+          <select name="historial_seguro" class="form-select">
+            <option value="bueno">Bueno</option>
+            <option value="reclamos_frecuentes">Reclamos Frecuentes</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Calcular Riesgo</button>
+      </form>
+    </div>
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="resultadoModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Resultado del Cálculo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body text-center">
+            {% if resultado %}
+  <div class="alert 
+    {% if resultado.nivel_riesgo == 'Bajo Riesgo' %}alert-success
+    {% elif resultado.nivel_riesgo == 'Moderado Riesgo' %}alert-warning
+    {% elif resultado.nivel_riesgo == 'Alto Riesgo' %}alert-danger
+    {% else %}alert-info
+    {% endif %}">
+    
+    <h4>{{ resultado.nombre }}</h4>
+    <p>Puntaje: <strong>{{ resultado.puntaje }}</strong></p>
+    <p>Nivel de Riesgo: <strong>{{ resultado.nivel_riesgo }}</strong></p>
+
+    <!-- Sección de Recomendaciones -->
+    <hr>
+    <h5>Recomendaciones de Salud</h5>
+    <ul>
+      {% if resultado.nivel_riesgo == 'Bajo Riesgo' %}
+        <li>¡Sigue con tu estilo de vida saludable!</li>
+        <li>Mantén una dieta equilibrada y haz ejercicio regularmente.</li>
+        <li>Realiza chequeos médicos anuales para prevenir cualquier problema futuro.</li>
+
+      {% elif resultado.nivel_riesgo == 'Moderado Riesgo' %}
+        <li>Considera mejorar tu alimentación reduciendo el consumo de grasas y azúcares.</li>
+        <li>Intenta aumentar la actividad física, al menos 30 minutos al día.</li>
+        <li>Consulta con un médico para evaluar tu estado de salud y recibir asesoramiento.</li>
+
+      {% elif resultado.nivel_riesgo == 'Alto Riesgo' %}
+        <li>Es fundamental que consultes con un médico lo antes posible.</li>
+        <li>Adopta hábitos más saludables: evita el tabaco, el alcohol en exceso y mejora tu alimentación.</li>
+        <li>Controla factores de riesgo como la presión arterial, colesterol y peso corporal.</li>
+
+      {% else %}
+        <li>Consulta con un profesional de la salud para una evaluación más detallada.</li>
+        <li>Adopta hábitos saludables para mejorar tu bienestar general.</li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% if resultado %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var resultadoModal = new bootstrap.Modal(document.getElementById("resultadoModal"));
+          resultadoModal.show();
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>
