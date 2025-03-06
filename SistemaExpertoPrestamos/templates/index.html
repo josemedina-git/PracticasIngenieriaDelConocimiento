@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sistema experto prestamos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+      body {
+        background-color: #f8f9fa;
+        padding-top: 50px;
+      }
+      .container-box {
+        max-width: 800px;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 60px;
+      }
+      .btn-primary {
+        background-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container-box">
+      <h2 class="mb-4 text-center">Prestamo</h2>
+      <form method="POST" action="/" id="riesgoForm">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" name="nombre" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Puntuacion crediticio</label>
+          <input type="number" name="score_crediticio" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ingresos mensuales</label>
+          <select name="ingresos_mensuales" class="form-select">
+            <option value="mayor a 3">Ingresos mayores a 3 veces la cuota del prestamo</option>
+            <option value="1.5 a 3">Ingresos de 1.5 a 3 veces la cuota del prestamo</option>
+            <option value="menor a 1.5">Ingresos menores a 1.5 la cuota del prestamo</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">DTI Relación Deuda/Ingreso</label>
+          <select name="dti" class="form-select">
+            <option value="menos de 30">Menos del 30% de ingresos comprometidos</option>
+            <option value="30 a 50">Entre 30% y 50% de ingresos comprometidos</option>
+            <option value="mas de 50">Mas del 50% de ingresos comprometidos</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de empleo</label>
+          <select name="tipo_empleo" class="form-select">
+            <option value="mayo a 5">Contrato fijo con mas de 5 años</option>
+            <option value="menos de 5">Contrato fijo con menos de 5 años</option>
+            <option value="temporal">Contrato temporal</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de garantia</label>
+          <select name="garantia" class="form-select">
+            <option value="aval mayor">Inmueble o aval de alto valor</option>
+            <option value="aval menor">Aval de menor valor</option>
+            <option value="sin aval">Sin aval</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Historial de Prestamos</label>
+          <select name="historial_prestamos" class="form-select">
+            <option value="sin retrasos">Pagos sin retrasos</option>
+            <option value="retrasos ocasionales">Retrasos ocasionales</option>
+            <option value="impagos">Historial de impagos</option>
+            <option value="sin registro">Sin registro</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Resultado</button>
+      </form>
+    </div>
+
+    <!-- Modal Bootstrap -->
+    <div class="modal fade" id="resultadoModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Resultado del Cálculo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body text-center">
+            {% if score %}
+  <div class="alert 
+    {% if score.nivel_riesgo == 'Prestamo aprobado' %}alert-success
+    {% elif score.nivel_riesgo == 'Prestamo aprobado condicional' %}alert-warning
+    {% elif score.nivel_riesgo == 'Prestamo rechazado' %}alert-danger
+    {% else %}alert-info
+    {% endif %}">
+    
+    <h4>{{ score.nombre }}</h4>
+    <p>Puntaje: <strong>{{ score.score }}</strong></p>
+    <p>Resultado: <strong>{{ score.nivel_riesgo }}</strong></p>
+
+    <!-- Sección de Recomendaciones -->
+    <hr>
+    <h5>Recomendaciones</h5>
+    <ul>
+      {% if score.nivel_riesgo == 'Prestamo aprobado' %}
+        <li>¡Continua con tu excelente historial!</li>
+
+      {% elif score.nivel_riesgo == 'Prestamo aprobado condicional' %}
+        <li>Se necesita más documentacion.</li>
+
+      {% elif score.nivel_riesgo == 'Prestamo rechazado' %}
+        <li>Sigue participando :C.</li>
+
+      {% else %}
+        <li>Consulta a un profesional para un resultado mas acertado.</li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% if score %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var resultadoModal = new bootstrap.Modal(document.getElementById("resultadoModal"));
+          resultadoModal.show();
+      });
+    </script>
+    {% endif %}
+  </body>
+</html>
