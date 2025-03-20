@@ -40,11 +40,15 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Ingresos mensuales</label>
-          <select name="ingresos_mensuales" class="form-select">
-            <option value="mayor a 3">Ingresos mayores a 3 veces la cuota del prestamo</option>
-            <option value="1.5 a 3">Ingresos de 1.5 a 3 veces la cuota del prestamo</option>
-            <option value="menor a 1.5">Ingresos menores a 1.5 la cuota del prestamo</option>
-          </select>
+          <input type="number" name="ingresos_mensuales" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Monto total del préstamo</label>
+          <input type="number" name="monto_prestamo" class="form-control" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cantidad de meses</label>
+          <input type="number" name="meses_prestamo" class="form-control" required />
         </div>
         <div class="mb-3">
           <label class="form-label">DTI Relación Deuda/Ingreso</label>
