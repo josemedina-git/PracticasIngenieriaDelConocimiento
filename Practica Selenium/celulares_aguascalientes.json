@@ -1,0 +1,69 @@
+[
+  {
+    "producto_numero": 1,
+    "nombre": "Edge 50 Pro POLED 6.6 pulgadas",
+    "precio": "Precio no disponible",
+    "url": "https://www.liverpool.com.mx/tienda/pdp/motorola-edge-50-pro-poled-6.6-pulgadas/1155298067?skuid=1155298070",
+    "disponibilidad_aguascalientes": [
+      {
+        "tienda": "Liverpool Ags. Altaria",
+        "existencia": "8 piezas"
+      },
+      {
+        "tienda": "Liverpool Aguascalientes Villasunción",
+        "existencia": "4 piezas"
+      }
+    ]
+  },
+  {
+    "producto_numero": 2,
+    "nombre": "Galaxy A56 Super AMOLED 6.7 pulgadas desbloqueado",
+    "precio": "Precio no disponible",
+    "url": "https://www.liverpool.com.mx/tienda/pdp/samsung-galaxy-a56-super-amoled-6.7-pulgadas-desbloqueado/1173599021?skuid=1173599036",
+    "disponibilidad_aguascalientes": [
+      {
+        "tienda": "Liverpool Aguascalientes Villasunción",
+        "existencia": "43 piezas"
+      },
+      {
+        "tienda": "Liverpool Ags. Altaria",
+        "existencia": "23 piezas"
+      }
+    ]
+  },
+  {
+    "producto_numero": 3,
+    "nombre": "Moto Edge 50 Fusion POLED 6.6 pulgadas Telcel + audífonos",
+    "precio": "Precio no disponible",
+    "url": "https://www.liverpool.com.mx/tienda/pdp/motorola-moto-edge-50-fusion-poled-6.6-pulgadas-telcel-+-aud%C3%ADfonos/1157268980?skuid=1157268992",
+    "disponibilidad_aguascalientes": [
+      {
+        "tienda": "Liverpool Ags. Altaria",
+        "existencia": "16 piezas"
+      }
+    ]
+  },
+  {
+    "producto_numero": 4,
+    "nombre": "Reno13F AMOLED 6.6 pulgadas Telcel",
+    "precio": "Precio no disponible",
+    "url": "https://www.liverpool.com.mx/tienda/pdp/oppo-reno13f-amoled-6.6-pulgadas-telcel/1173585764?skuid=1173585779",
+    "disponibilidad_aguascalientes": []
+  },
+  {
+    "producto_numero": 5,
+    "nombre": "Magic 7 Lite AMOLED 6.7 pulgadas Telcel",
+    "precio": "Precio no disponible",
+    "url": "https://www.liverpool.com.mx/tienda/pdp/honor-magic-7-lite-amoled-6.7-pulgadas-telcel/1171354927?skuid=1171354931",
+    "disponibilidad_aguascalientes": [
+      {
+        "tienda": "Liverpool Ags. Altaria",
+        "existencia": "25 piezas"
+      },
+      {
+        "tienda": "Liverpool Aguascalientes Villasunción",
+        "existencia": "7 piezas"
+      }
+    ]
+  }
+]
